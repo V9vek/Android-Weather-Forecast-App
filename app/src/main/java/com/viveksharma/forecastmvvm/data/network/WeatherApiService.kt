@@ -1,8 +1,7 @@
-package com.viveksharma.forecastmvvm.data
+package com.viveksharma.forecastmvvm.data.network
 
-import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.viveksharma.forecastmvvm.data.response.CurrentWeatherResponse
+import com.viveksharma.forecastmvvm.data.network.response.CurrentWeatherResponse
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -24,12 +23,17 @@ interface WeatherApiService {
     ): Deferred<CurrentWeatherResponse>
 
     companion object {
-        operator fun invoke(): WeatherApiService {           //invoke() fun called directly when WeatherApiService() is called
+        operator fun invoke(
+            connectivityInterceptor: ConnectivityInterceptor
+        ): WeatherApiService {                                  //invoke() fun called directly when WeatherApiService() is called
             val requestInterceptor = Interceptor { chain ->
+
                 val url = chain.request()
                     .url()
                     .newBuilder()
-                    .addQueryParameter("key", API_KEY)
+                    .addQueryParameter("key",
+                        API_KEY
+                    )
                     .build()
                 val request = chain.request()
                     .newBuilder()
@@ -41,11 +45,12 @@ interface WeatherApiService {
 
             val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(requestInterceptor)
+                .addInterceptor(connectivityInterceptor)
                 .build()
 
             return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("https://api.weatherapi.com/v1/")
+                .baseUrl("http://api.weatherapi.com/v1/")
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

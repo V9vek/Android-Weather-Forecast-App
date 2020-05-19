@@ -1,4 +1,4 @@
-package com.viveksharma.forecastmvvm.data.response
+package com.viveksharma.forecastmvvm.data.database.entity
 
 
 import com.google.gson.annotations.SerializedName

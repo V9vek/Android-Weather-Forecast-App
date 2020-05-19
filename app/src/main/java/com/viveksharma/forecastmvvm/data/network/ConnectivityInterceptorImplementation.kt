@@ -2,6 +2,7 @@ package com.viveksharma.forecastmvvm.data.network
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.util.Log
 import com.viveksharma.forecastmvvm.internal.NoConnectivityException
 import okhttp3.Interceptor
 import okhttp3.Response
@@ -12,8 +13,10 @@ class ConnectivityInterceptorImplementation(context: Context) : ConnectivityInte
     private val appContext = context.applicationContext
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        if (!isOnline())
+        if (!isOnline()){
+            Log.e("Interceptor", "Not Online")
             throw NoConnectivityException()
+        }
         else
             return chain.proceed(chain.request())
     }

@@ -45,7 +45,6 @@ class CurrentWeatherFragment : Fragment() {
             currentText.text = it.toString()
         })
 
-
         GlobalScope.launch(Dispatchers.Main) {
             weatherNetworkDataSource.fetchCurrentWeather("Delhi", "en")
         }

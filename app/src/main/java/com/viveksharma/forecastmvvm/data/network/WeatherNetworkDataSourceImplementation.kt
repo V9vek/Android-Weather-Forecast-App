@@ -19,7 +19,7 @@ class WeatherNetworkDataSourceImplementation
                 .getCurrentWeather(location, languageCode)
                 .await()
 
-            _downloadedCurrentWeather.value = fetchedCurrentWeather
+            _downloadedCurrentWeather.postValue(fetchedCurrentWeather)
         } catch (e: NoConnectivityException) {
             Log.e("Connectivity", "No Connection", e)
         }

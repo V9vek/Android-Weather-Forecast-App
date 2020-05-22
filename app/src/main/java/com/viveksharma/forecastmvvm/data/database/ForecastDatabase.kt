@@ -5,11 +5,13 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.viveksharma.forecastmvvm.data.database.entity.CurrentWeatherEntry
+import com.viveksharma.forecastmvvm.data.database.entity.WeatherLocation
 
-@Database(entities = [CurrentWeatherEntry::class], version = 1, exportSchema = false)
+@Database(entities = [CurrentWeatherEntry::class, WeatherLocation::class], version = 1, exportSchema = false)
 abstract class ForecastDatabase : RoomDatabase() {
 
     abstract val currentWeatherDao: CurrentWeatherDao
+    abstract val weatherLocationDao: WeatherLocationDao
 
     companion object {
         private var INSTANCE: ForecastDatabase? = null

@@ -1,6 +1,8 @@
 package com.viveksharma.forecastmvvm
 
 import android.app.Application
+import android.content.Context
+import com.google.android.gms.location.LocationServices
 import com.viveksharma.forecastmvvm.data.database.ForecastDatabase
 import com.viveksharma.forecastmvvm.data.network.*
 import com.viveksharma.forecastmvvm.data.provider.LocationProvider
@@ -28,7 +30,8 @@ class ForecastApplication : Application(), KodeinAware {
         bind<ConnectivityInterceptor>() with singleton { ConnectivityInterceptorImplementation(instance()) }
         bind() from singleton { WeatherApiService(instance()) }
         bind<WeatherNetworkDataSource>() with singleton { WeatherNetworkDataSourceImplementation(instance()) }
-        bind<LocationProvider>() with singleton { LocationProviderImplementation() }
+        bind() from provider { LocationServices.getFusedLocationProviderClient(instance<Context>()) }
+        bind<LocationProvider>() with singleton { LocationProviderImplementation(instance(), instance()) }
         bind<ForecastRepository>() with singleton { ForecastRepositoryImplementation(instance(), instance(), instance(), instance()) }
         bind<UnitProvider>() with singleton { UnitProviderImplementation(instance()) }
         bind() from provider { CurrentWeatherViewModelFactory(instance(), instance()) }

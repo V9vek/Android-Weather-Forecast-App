@@ -2,6 +2,7 @@ package com.viveksharma.forecastmvvm.data.network
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.viveksharma.forecastmvvm.data.network.response.CurrentWeatherResponse
+import com.viveksharma.forecastmvvm.data.network.response.FutureWeatherResponse
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -21,6 +22,15 @@ interface WeatherApiService {
         @Query("q") location: String,
         @Query("lang") languageCode: String = "en"
     ): Deferred<CurrentWeatherResponse>
+
+
+    // http://api.weatherapi.com/v1/forecast.json?key=de8a83dea8874eb0814181851201805&q=Delhi&days=1
+    @GET("forecast.json")
+    fun getFutureWeather(
+        @Query("q") location: String,
+        @Query("days") days: Int,
+        @Query("lang") languageCode: String = "en"
+    ): Deferred<FutureWeatherResponse>
 
     companion object {
         operator fun invoke(

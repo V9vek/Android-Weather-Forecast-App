@@ -12,6 +12,7 @@ import com.viveksharma.forecastmvvm.data.provider.UnitProviderImplementation
 import com.viveksharma.forecastmvvm.data.repository.ForecastRepository
 import com.viveksharma.forecastmvvm.data.repository.ForecastRepositoryImplementation
 import com.viveksharma.forecastmvvm.ui.weather.current.CurrentWeatherViewModelFactory
+import com.viveksharma.forecastmvvm.ui.weather.future.list.FutureListWeatherViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
@@ -26,15 +27,17 @@ class ForecastApplication : Application(), KodeinAware {
 
         bind() from singleton { ForecastDatabase.getInstance(instance()) }
         bind() from singleton { instance<ForecastDatabase>().currentWeatherDao }
+        bind() from singleton { instance<ForecastDatabase>().futureWeatherDao }
         bind() from singleton { instance<ForecastDatabase>().weatherLocationDao }
         bind<ConnectivityInterceptor>() with singleton { ConnectivityInterceptorImplementation(instance()) }
         bind() from singleton { WeatherApiService(instance()) }
         bind<WeatherNetworkDataSource>() with singleton { WeatherNetworkDataSourceImplementation(instance()) }
         bind() from provider { LocationServices.getFusedLocationProviderClient(instance<Context>()) }
         bind<LocationProvider>() with singleton { LocationProviderImplementation(instance(), instance()) }
-        bind<ForecastRepository>() with singleton { ForecastRepositoryImplementation(instance(), instance(), instance(), instance()) }
+        bind<ForecastRepository>() with singleton { ForecastRepositoryImplementation(instance(), instance(), instance(), instance(), instance()) }
         bind<UnitProvider>() with singleton { UnitProviderImplementation(instance()) }
         bind() from provider { CurrentWeatherViewModelFactory(instance(), instance()) }
+        bind() from provider { FutureListWeatherViewModelFactory(instance(), instance()) }
     }
 
     override fun onCreate() {

@@ -1,16 +1,17 @@
 package com.viveksharma.forecastmvvm.data.database
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
 import com.viveksharma.forecastmvvm.data.database.entity.CurrentWeatherEntry
+import com.viveksharma.forecastmvvm.data.database.entity.FutureWeatherEntry
 import com.viveksharma.forecastmvvm.data.database.entity.WeatherLocation
 
-@Database(entities = [CurrentWeatherEntry::class, WeatherLocation::class], version = 1, exportSchema = false)
+@Database(entities = [CurrentWeatherEntry::class, FutureWeatherEntry::class, WeatherLocation::class], version = 1, exportSchema = false)
+@TypeConverters(LocalDateConverter::class)
 abstract class ForecastDatabase : RoomDatabase() {
 
     abstract val currentWeatherDao: CurrentWeatherDao
+    abstract val futureWeatherDao: FutureWeatherDao
     abstract val weatherLocationDao: WeatherLocationDao
 
     companion object {

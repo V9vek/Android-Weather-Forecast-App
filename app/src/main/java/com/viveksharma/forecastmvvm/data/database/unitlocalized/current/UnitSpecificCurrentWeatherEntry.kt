@@ -1,4 +1,4 @@
-package com.viveksharma.forecastmvvm.data.database.unitlocalized
+package com.viveksharma.forecastmvvm.data.database.unitlocalized.current
 
 interface UnitSpecificCurrentWeatherEntry {
     val temperature: Double

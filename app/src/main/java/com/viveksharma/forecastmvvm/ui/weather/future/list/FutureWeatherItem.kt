@@ -2,8 +2,8 @@ package com.viveksharma.forecastmvvm.ui.weather.future.list
 
 import com.bumptech.glide.Glide
 import com.viveksharma.forecastmvvm.R
-import com.viveksharma.forecastmvvm.data.database.unitlocalized.future.MetricSimpleFutureWeatherEntry
-import com.viveksharma.forecastmvvm.data.database.unitlocalized.future.UnitSpecificSimpleFutureWeatherEntry
+import com.viveksharma.forecastmvvm.data.database.unitlocalized.future.list.MetricSimpleFutureWeatherEntry
+import com.viveksharma.forecastmvvm.data.database.unitlocalized.future.list.UnitSpecificSimpleFutureWeatherEntry
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_future_weather.*

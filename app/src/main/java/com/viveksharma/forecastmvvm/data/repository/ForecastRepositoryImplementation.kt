@@ -6,7 +6,8 @@ import com.viveksharma.forecastmvvm.data.database.FutureWeatherDao
 import com.viveksharma.forecastmvvm.data.database.WeatherLocationDao
 import com.viveksharma.forecastmvvm.data.database.entity.WeatherLocation
 import com.viveksharma.forecastmvvm.data.database.unitlocalized.current.UnitSpecificCurrentWeatherEntry
-import com.viveksharma.forecastmvvm.data.database.unitlocalized.future.UnitSpecificSimpleFutureWeatherEntry
+import com.viveksharma.forecastmvvm.data.database.unitlocalized.future.detail.UnitSpecificDetailFutureWeatherEntry
+import com.viveksharma.forecastmvvm.data.database.unitlocalized.future.list.UnitSpecificSimpleFutureWeatherEntry
 import com.viveksharma.forecastmvvm.data.network.FORECAST_DAYS_COUNT
 import com.viveksharma.forecastmvvm.data.network.WeatherNetworkDataSource
 import com.viveksharma.forecastmvvm.data.network.response.CurrentWeatherResponse
@@ -58,6 +59,15 @@ class ForecastRepositoryImplementation(
             initWeatherData()
             return@withContext if (metric) futureWeatherDao.getSimpleWeatherForecastsMetric(startDate)
             else futureWeatherDao.getSimpleWeatherForecastsImperial(startDate)
+        }
+    }
+
+    override suspend fun getFutureWeatherByDate(
+        date: LocalDate, metric: Boolean
+    ): LiveData<out UnitSpecificDetailFutureWeatherEntry> {
+        return withContext(Dispatchers.IO){
+            return@withContext if (metric) futureWeatherDao.getDetailedWeatherByDateMetric(date)
+            else futureWeatherDao.getDetailedWeatherByDateImperial(date)
         }
     }
 

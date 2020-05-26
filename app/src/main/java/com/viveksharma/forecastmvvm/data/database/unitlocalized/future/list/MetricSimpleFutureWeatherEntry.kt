@@ -1,4 +1,4 @@
-package com.viveksharma.forecastmvvm.data.database.unitlocalized.future
+package com.viveksharma.forecastmvvm.data.database.unitlocalized.future.list
 
 import androidx.room.ColumnInfo
 import java.time.LocalDate

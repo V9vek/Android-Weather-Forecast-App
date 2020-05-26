@@ -14,12 +14,20 @@
         android:id="@+id/futureListWeatherFragment"
         android:name="com.viveksharma.forecastmvvm.ui.weather.future.list.FutureListWeatherFragment"
         android:label="Future Weather"
-        tools:layout="@layout/fragment_future_list_weather" />
+        tools:layout="@layout/fragment_future_list_weather" >
+        <action
+            android:id="@+id/action_futureListWeatherFragment_to_futureDetailWeatherFragment"
+            app:destination="@id/futureDetailWeatherFragment" />
+    </fragment>
     <fragment
         android:id="@+id/futureDetailWeatherFragment"
         android:name="com.viveksharma.forecastmvvm.ui.weather.future.detail.FutureDetailWeatherFragment"
         android:label="fragment_future_detail_weather"
-        tools:layout="@layout/fragment_future_detail_weather" />
+        tools:layout="@layout/fragment_future_detail_weather" >
+        <argument
+            android:name="dateString"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         tools:layout=""
